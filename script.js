@@ -1,3 +1,10 @@
+$(document).ready(function ()
+{
+    setHumidity();
+    setLumiere();
+    setTemperatureSol();
+
+
 var date = Array();
 var val = Array();
 am4core.ready(function() {
@@ -69,7 +76,7 @@ document.addEventListener("visibilitychange", function() {
 }, false);
 
 // add data
-	
+var s =0;
 function GetData(){
 	var url = 'https://api.thingspeak.com/channels/1084929/feeds.json?key=5S4XHF5R773T2SO6&results=1';
             $.ajax
@@ -82,8 +89,12 @@ function GetData(){
                 success: function (data, textStatus, xhr) {
                     $.each(data, function (i, item) {
                         if (i == 'feeds') {
+                            
                             var ubound = item.length;
+                            
                             //$('#txtField1').val(item[ubound - 1].field1);
+                            s = item[ubound - 1].entry_id;
+                            
 							
 							visits =
             visits + Math.round((Math.random() < 0.5 ? 1 : -1) * Math.random() * 5);
@@ -102,6 +113,8 @@ function GetData(){
             });
 		
             setTimeout(GetData, 15000);
+
+
 	}
 
 GetData();
@@ -155,3 +168,101 @@ series.events.on("validated", function() {
 });
 
 }); // end am4core.ready()
+
+});
+
+function setHumidity(){
+var url = 'https://api.thingspeak.com/channels/1085105/feeds.json?key=TSCVHX1NH48O2135&results=1';
+            $.ajax
+            ({
+                url: url,
+                type: 'GET',
+                contentType: "application/json",
+                //dataType: "json",
+                //crossDomain: true,
+                success: function (data, textStatus, xhr) {
+                    $.each(data, function (i, item) {
+                        if (i == 'feeds') {
+                            
+                            var ubound = item.length;
+                           
+                            document.getElementById("Humidity").innerHTML = item[ubound - 1].field1+" %";
+                          
+                            
+							
+		
+
+                        }
+                    });
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    alert(errorThrown);
+                }
+            });
+		
+            setTimeout(setHumidity, 15000);
+        }
+        function setTemperatureSol(){
+
+            var url = 'https://api.thingspeak.com/channels/1085109/feeds.json?key=WVR97Q1E7JLNS27N&results=1';
+            $.ajax
+            ({
+                url: url,
+                type: 'GET',
+                contentType: "application/json",
+                //dataType: "json",
+                //crossDomain: true,
+                success: function (data, textStatus, xhr) {
+                    $.each(data, function (i, item) {
+                        if (i == 'feeds') {
+                            
+                            var ubound = item.length;
+                           
+                            document.getElementById("Temp").innerHTML = item[ubound - 1].field1+" °C";
+                          
+                            
+							
+		
+
+                        }
+                    });
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    alert(errorThrown);
+                }
+            });
+		
+            setTimeout(setTemperatureSol, 15000);
+        }
+
+        function setLumiere(){
+            var url = 'https://api.thingspeak.com/channels/1085111/feeds.json?key=8CH8UBT62V9OY16K&results=1';
+            $.ajax
+            ({
+                url: url,
+                type: 'GET',
+                contentType: "application/json",
+                //dataType: "json",
+                //crossDomain: true,
+                success: function (data, textStatus, xhr) {
+                    $.each(data, function (i, item) {
+                        if (i == 'feeds') {
+                            
+                            var ubound = item.length;
+                           
+                            document.getElementById("light").innerHTML = item[ubound - 1].field1;
+                          
+                            
+							
+		
+
+                        }
+                    });
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    alert(errorThrown);
+                }
+            });
+		
+            setTimeout(setLumiere, 15000);
+        }
