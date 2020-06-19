@@ -96,7 +96,7 @@ function GetData(){
                             }
                             s=item[ubound - 1].field1;
                             //$('#txtField1').val(item[ubound - 1].field1);
-                            document.getElementById("tempElevee").innerHTML = "highest temperature recorded:  "+ '<b>'+ s +'</b>';
+                            document.getElementById("test").innerHTML = "highest temperature recorded:  "+ '<b style="color:red;">'+ s +'</b>';
                             
                             
 							
@@ -262,9 +262,9 @@ var url = 'https://api.thingspeak.com/channels/1085105/feeds.json?key=TSCVHX1NH4
                            
                             document.getElementById("light").innerHTML = item[ubound - 1].field1 + " lux";
                             if(item[ubound - 1].field1 < 70){
-                                document.getElementById("etatLum").innerHTML = "outdoor lamps state: ON";
+                                document.getElementById("etatLum").innerHTML = "Outdoor Lamps State: " + '<b style=" color:green;">'+"ON"+'</b>';
                             }else{
-                                document.getElementById("etatLum").innerHTML = "outdoor lamps state: OFF";
+                                document.getElementById("etatLum").innerHTML = "Outdoor Lamps State: " + '<b style=" color:red;">'+"OFF"+'</b>';
                             }
                           
                             
