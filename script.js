@@ -91,9 +91,13 @@ function GetData(){
                         if (i == 'feeds') {
                             
                             var ubound = item.length;
-                            
+                            if(s<item[ubound - 1].field1){
+                                s =item[ubound - 1].field1;
+                            }
+                            s=item[ubound - 1].field1;
                             //$('#txtField1').val(item[ubound - 1].field1);
-                            s = item[ubound - 1].entry_id;
+                            document.getElementById("tempElevee").innerHTML = "highest temperature recorded:  "+ '<b>'+ s +'</b>';
+                            
                             
 							
 							visits =
@@ -187,7 +191,13 @@ var url = 'https://api.thingspeak.com/channels/1085105/feeds.json?key=TSCVHX1NH4
                             var ubound = item.length;
                            
                             document.getElementById("Humidity").innerHTML = item[ubound - 1].field1+" %";
-                          
+                            if(item[ubound - 1].field1<=45){
+                                document.getElementById("etat").innerHTML = " High Speed";
+                            }else if(item[ubound - 1].field1 >45 && item[ubound - 1].field1<=85){
+                                document.getElementById("etat").innerHTML = " Medium Speed";
+                            }else if(item[ubound - 1].field1 >85){
+                                document.getElementById("etat").innerHTML = " Off"
+                            }
                             
 							
 		
@@ -250,7 +260,12 @@ var url = 'https://api.thingspeak.com/channels/1085105/feeds.json?key=TSCVHX1NH4
                             
                             var ubound = item.length;
                            
-                            document.getElementById("light").innerHTML = item[ubound - 1].field1;
+                            document.getElementById("light").innerHTML = item[ubound - 1].field1 + " lux";
+                            if(item[ubound - 1].field1 < 70){
+                                document.getElementById("etatLum").innerHTML = "outdoor lamps state: ON";
+                            }else{
+                                document.getElementById("etatLum").innerHTML = "outdoor lamps state: OFF";
+                            }
                           
                             
 							
