@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>SB Admin 2 - Dashboard</title>
+
+  <!-- Custom fonts for this template-->
+  
+  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+  <!-- Custom styles for this template-->
+  <link href="css/sb-admin-2.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+  <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+  <script src="https://www.amcharts.com/lib/4/core.js"></script>
+  <script src="https://www.amcharts.com/lib/4/charts.js"></script>
+  <script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
+  <script src="./script.js"></script>
+
+</head>
+
+<body id="page-top">
+
+  <!-- Page Wrapper -->
+  <div id="wrapper">
+
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+      <!-- Main Content -->
+      <div id="content">
+
+        <!-- Topbar -->
+        <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+          <marquee   height="50" style="TAHOMA: 150%; font-size: 18pt; color: white; border-style: ridge; border-color: #E3BE13" bgcolor="white" onmouseover="this.stop();" onmouseout="this.start();"> <a href="" >WELCOME TO YOUR SCHOOL</a></marquee>
+
+        </nav>
+        <!-- End of Topbar -->
+
+        <!-- Begin Page Content -->
+        <div class="container-fluid">
+
+          <!-- Page Heading -->
+          <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">Statistics</h1>
+            <button  class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="download_csv();"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</button>
+          </div>
+
+
+
+         
+
+          <div class="row">
+
+            <!-- Area Chart -->
+            <div class="col-xl-12 col-lg-12">
+              <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                  <h6 class="m-0 font-weight-bold text-primary">Temperature Statistics</h6>
+                  
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                  <div class="chart-area" id="chartdiv">
+                   
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+            <!-- Pie Chart -->
+            <div class="row">
+            <div class="col-xl-4 col-lg-5">
+              <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                  <h6 class="m-0 font-weight-bold text-primary">Revenue Sources</h6>
+                 
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                  <div class="chart-pie pt-4 pb-2">
+                      <p id="mostValue" style="font-size: 80px; text-align: center; font-weight: bold;"></p><br>
+                      <p id="Time" style="font-size: xx-large; text-align: center; "></p>
+                  </div>
+                 
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-4 col-lg-5">
+              <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                  <h5 class="m-0 font-weight-bold text-primary">Light</h5>
+                 
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                  <div class="chart-pie pt-4 pb-2">
+                    <p id="light" style="font-size: 80px; text-align: center; font-weight: bold;" ></p>
+                  </div>
+                 
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-4 col-lg-5">
+              <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                  <h6 class="m-0 font-weight-bold text-primary">Soil's Status</h6>
+                 
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                  <div class="chart-pie pt-4 pb-2">
+                   <p style="font-size: 20px;">Humidity &nbsp;<i class='fas fa-water' style='font-size:36px'></i> <p id="Humidity" style="font-size: 50px ; text-align: center; font-weight: bold;"  ></p></p>
+                   <p style="font-size: 20px;"> Temperature &nbsp;<i class='fas fa-temperature-low' style='font-size:36px;color:red'></i><p id="Temp" style="font-size: 50px; text-align: center; font-weight: bold;"  ></p></p>
+                    
+                  </div>
+                 
+                </div>
+              </div>
+            </div>
+          
+          </div>
+          <!-- Content Row -->
+          <div class="row">
+
+            <!-- Content Column -->
+            <div class="col-lg-6 mb-4">
+
+              <!-- Project Card Example -->
+              <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                  <h6 class="m-0 font-weight-bold text-primary">Projects</h6>
+                </div>
+                <div class="card-body">
+                  <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner">
+                      <div class="carousel-item active">
+                        <img class="d-block w-100" src="./images/image1.jfif" alt="First slide">
+                        <div class="carousel-caption d-none d-md-block">
+                          <h5>...</h5>
+                          <p>...</p>
+                        </div>
+                      </div>
+                      <div class="carousel-item">
+                        <img class="d-block w-100" src="./images/image2.jfif" alt="Second slide">
+                      </div>
+                      <div class="carousel-item">
+                        <img class="d-block w-100" src="./images/image3.jpg" alt="Third slide">
+                        <div class="carousel-caption d-none d-md-block">
+                          <h5>...</h5>
+                          <p>...</p>
+                        </div>
+                      </div>
+                    </div>
+                    <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                      <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                      <span class="sr-only">Next</span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+             
+
+            </div>
+
+            <div class="col-lg-6 mb-4">
+              <div class="row">
+              <!-- Illustrations -->
+              <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                  <h6 class="m-0 font-weight-bold text-primary">CIMASI</h6>
+                  
+                </div>
+                <div class="card-body">
+                  <p>Le centre international des matériaux avancés et systèmes intelligents <b>(CIMASI)</b> est un centre de recherche de l’avenir, très pointue dans le
+                     domaine des énergies renouvelables et de l’efficacité énergétique couvrant tous les aspects du système énergétique, y compris l'amélioration
+                      et la gestion des systèmes et réseaux électriques, la production et le stockage de l’énergie électrique, l’efficacité énergétique, 
+                      le transport et la communication entre systèmes énergétiques intelligents. Son principal but c’est de mener des recherches en vue de 
+                      développer des outils pour la mise en œuvre de solutions de systèmes d'énergie intégrés et intelligents 
+                    et surtout des méthodes pour prévoir, contrôler et optimiser leurs interactions grâce à l'utilisation de solutions TIC avancées</p>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <!-- Illustrations -->
+              <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                  <h6 class="m-0 font-weight-bold text-primary">CIMASI's Goals</h6>
+                  
+                </div>
+                <div class="card-body">
+                 <ul>
+                   <li>
+                    <b>L’objectif sociétal</b> du centre est d'établir une voie réaliste et concrète pour réduire fortement la dépendance de l’énergie fossile.
+                  </li>
+                <li>
+                    <b>L'objectif scientifique</b> du centre est de promouvoir la recherche dans le domaine de l’énergie et surtout les énergies renouvelables et l’optimisation de la consommation énergétique, aussi le centre a pour but de créer une synergie entre les différents chercheurs impliqués dans le projet.
+                  </li>
+                <li>
+                    <b>L'objectif pédagogique</b> du centre est de former une génération d'universitaires, ingénieurs et entrepreneurs sur la nécessité de considérer le système énergétique dans son ensemble dans un contexte de collaboration intégrée.
+                  </li>
+                <li>
+                    <b> Le point de vue commercial: </b>le centre a pour objectif d'identifier et de mettre en place des solutions qui peuvent former l'arrière-plan des opportunités commerciales dans le cadre des villes intelligentes, et de soutenir le développement de ces projets.
+                   </li>
+                 </ul>
+                </div>
+              </div>
+            </div>
+
+            </div>
+          </div>
+
+        </div>
+        <!-- /.container-fluid -->
+
+      </div>
+      <!-- End of Main Content -->
+
+      <!-- Footer -->
+      <footer class="sticky-footer bg-white">
+        <div class="container my-auto">
+          <div class="copyright text-center my-auto">
+            <span>Copyright &copy; Your Website 2019</span>
+          </div>
+        </div>
+      </footer>
+      <!-- End of Footer -->
+
+    </div>
+    <!-- End of Content Wrapper -->
+
+  </div>
+  <!-- End of Page Wrapper -->
+
+  <!-- Scroll to Top Button-->
+  <a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+  </a>
+
+  <!-- Logout Modal-->
+  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+          <a class="btn btn-primary" href="login.html">Logout</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap core JavaScript-->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Core plugin JavaScript-->
+  <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+  <!-- Custom scripts for all pages-->
+  <script src="js/sb-admin-2.min.js"></script>
+
+  <!-- Page level plugins -->
+
+
+  <!-- Page level custom scripts -->
+
+  
+
+</body>
+
+</html>
