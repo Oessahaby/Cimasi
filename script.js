@@ -1,5 +1,6 @@
 $(document).ready(function ()
 {
+    
     setHumidity();
     setLumiere();
     setTemperatureSol();
@@ -7,6 +8,8 @@ $(document).ready(function ()
 
 var date = Array();
 var val = Array();
+var tempArray = Array();
+var Temperature_array = Array();
 am4core.ready(function() {
 
 // Themes begin
@@ -77,7 +80,9 @@ document.addEventListener("visibilitychange", function() {
 
 // add data
 var s =0;
+
 function GetData(){
+
 	var url = 'https://api.thingspeak.com/channels/1084929/feeds.json?key=5S4XHF5R773T2SO6&results=1';
             $.ajax
             ({
@@ -94,10 +99,15 @@ function GetData(){
                             if(s<item[ubound - 1].field1){
                                 s =item[ubound - 1].field1;
                             }
-                            s=item[ubound - 1].field1;
+                            
                             //$('#txtField1').val(item[ubound - 1].field1);
                             document.getElementById("test").innerHTML = "highest temperature recorded:  "+ '<b style="color:red;">'+ s +'</b>';
-                            
+                            var currentdate=new Date();
+                            tempArray.push(item[ubound - 1].field1);
+                            tempArray.push(currentdate.getHours()+":"+currentdate.getMinutes()+":"+currentdate.getSeconds())
+                            Temperature_array.push(tempArray);
+                            tempArray =[];
+
                             
 							
 							visits =
@@ -119,7 +129,8 @@ function GetData(){
             setTimeout(GetData, 15000);
 
 
-	}
+    }
+  
 
 GetData();
 
@@ -171,10 +182,32 @@ series.events.on("validated", function() {
     bullet.validatePosition();
 });
 
+
 }); // end am4core.ready()
+$("#tempBtn").click(function(){
+    var csv = 'temperature,Time\n';
+    Temperature_array.forEach(function(row) {
+            csv += row.join(',');
+            csv += "\n";
+    });
+ 
+
+    var hiddenElement = document.createElement('a');
+    hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(csv);
+    hiddenElement.target = '_blank';
+    hiddenElement.download = 'temperature.csv';
+    hiddenElement.click();
+})
 
 });
 
+var solHumidity = Array();
+var solHumidity_array = Array()
+var solTemperature = Array();
+var solTemperature_array = Array();
+var lightArray = Array();
+var light_array = Array();
+var t =0;
 function setHumidity(){
 var url = 'https://api.thingspeak.com/channels/1085105/feeds.json?key=TSCVHX1NH48O2135&results=1';
             $.ajax
@@ -189,7 +222,14 @@ var url = 'https://api.thingspeak.com/channels/1085105/feeds.json?key=TSCVHX1NH4
                         if (i == 'feeds') {
                             
                             var ubound = item.length;
+                            var currentdate = new Date();
                            
+                            solHumidity.push(item[ubound - 1].field1);
+
+                            
+                            solHumidity.push(currentdate.getHours()+":"+currentdate.getMinutes()+":"+currentdate.getSeconds());
+                            solHumidity_array.push(solHumidity);
+                            solHumidity = [];
                             document.getElementById("Humidity").innerHTML = item[ubound - 1].field1+" %";
                             if(item[ubound - 1].field1<=45){
                                 document.getElementById("etat").innerHTML = " High Speed";
@@ -229,8 +269,11 @@ var url = 'https://api.thingspeak.com/channels/1085105/feeds.json?key=TSCVHX1NH4
                             var ubound = item.length;
                            
                             document.getElementById("Temp").innerHTML = item[ubound - 1].field1+" °C";
-                          
-                            
+                            var currentdate = new Date();
+                            solTemperature.push(item[ubound - 1].field1);
+                            solTemperature.push(currentdate.getHours()+":"+currentdate.getMinutes()+":"+currentdate.getSeconds());
+                            solTemperature_array.push(solTemperature);
+                            solTemperature = [];
 							
 		
 
@@ -267,8 +310,11 @@ var url = 'https://api.thingspeak.com/channels/1085105/feeds.json?key=TSCVHX1NH4
                                 document.getElementById("etatLum").innerHTML = "Outdoor Lamps State: " + '<b style=" color:red;">'+"OFF"+'</b>';
                             }
                           
-                            
-							
+                            var currentdate = new Date();
+                            lightArray.push(item[ubound - 1].field1);
+                            lightArray.push(currentdate.getHours()+":"+currentdate.getMinutes()+":"+currentdate.getSeconds());
+                            light_array.push(lightArray);
+                            lightArray =[];
 		
 
                         }
@@ -281,3 +327,51 @@ var url = 'https://api.thingspeak.com/channels/1085105/feeds.json?key=TSCVHX1NH4
 		
             setTimeout(setLumiere, 15000);
         }
+        
+        
+
+
+    function Lighth() {
+            var csv = 'Light,Time\n';
+            light_array.forEach(function(row) {
+                    csv += row.join(',');
+                    csv += "\n";
+            });
+         
+  
+            var hiddenElement = document.createElement('a');
+            hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(csv);
+            hiddenElement.target = '_blank';
+            hiddenElement.download = 'Light.csv';
+            hiddenElement.click();
+        }
+    function SolTempCsv() {
+            var csv = 'Temperature,Time\n';
+            solTemperature_array.forEach(function(row) {
+                    csv += row.join(',');
+                    csv += "\n";
+            });
+         
+
+            var hiddenElement = document.createElement('a');
+            hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(csv);
+            hiddenElement.target = '_blank';
+            hiddenElement.download = 'solTemp.csv';
+            hiddenElement.click();
+        }
+        function SolHumCsv() {
+            var csv = 'Humidity,Time\n';
+            solHumidity_array.forEach(function(row) {
+                    csv += row.join(',');
+                    csv += "\n";
+            });
+         
+
+            var hiddenElement = document.createElement('a');
+            hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(csv);
+            hiddenElement.target = '_blank';
+            hiddenElement.download = 'solHumidity.csv';
+            hiddenElement.click();
+        }
+        
+        

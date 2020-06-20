@@ -77,7 +77,19 @@
             <div  id="test">
               
             </div>
-            <button  class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="download_csv();"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</button>
+            <!--<button  class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="download_csv();"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</button>-->
+            <div class="dropdown">
+              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Dowload Data 
+              </button>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <button class="dropdown-item" id="tempBtn">Temperature</button>
+                <button class="dropdown-item" onclick="SolTempCsv();" >Soil's Temperature</button>
+                <button class="dropdown-item" onclick="SolHumCsv();" >Soil's Humidity</button>
+                <button class="dropdown-item" onclick="Light();" >Light</button>
+          
+              </div>
+            </div>
           </div>
 
 
